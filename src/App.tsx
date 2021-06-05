@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Routes from './routes';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { teal } from '@material-ui/core/colors';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { ChallengesProvider } from './contexts/QuizContexts'
+import './global.css'
+interface AppProps {
+  quantity: number
+  answers: any
+  questions: []
 }
 
-export default App;
+const theme = createTheme({
+  palette: {
+    primary: teal,
+  },
+  typography: {
+    button: {
+      color: 'red',
+      textTransform: 'capitalize',
+      width: '20rem'
+    }
+  }
+});
+
+export default function App(props: any) {
+  return (
+    <>
+      <ThemeProvider theme={theme}>
+        <ChallengesProvider quantity={props.quantity}
+          answers={props.answers}
+          questions={props.questions}>
+          <Router>
+            <Routes />
+          </Router>
+        </ChallengesProvider>
+      </ThemeProvider>
+    </>
+  )
+}
