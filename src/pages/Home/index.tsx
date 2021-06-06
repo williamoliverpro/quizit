@@ -20,19 +20,9 @@ export default function Home() {
 
   return (
     <>
-      <Box mx="auto" my="2rem" px="1rem" sx={{
-        height: '90vh',
-        maxWidth: 940,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}>
-        <Typography sx={{
-          fontSize: "2rem",
-          color: '#293845',
-          fontWeight: "bold"
-        }}>
-          Welcome
+      <Box mx="auto" my="2rem" px="1rem" height="90vh" maxWidth="940px" display="flex" flexDirection="column" justifyContent="space-between">
+        <Typography fontSize="2rem" fontWeight="bold" textAlign="center" color="#293845" >
+          Welcome to Quiz.it
         </Typography>
         <Box width="100%" display="flex" alignItems="center" justifyContent="center">
           <Lottie

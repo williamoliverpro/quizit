@@ -65,7 +65,7 @@ export default function Quiz() {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {
-          if (Object.keys(values).length < Object.keys(questions).length) {
+          if (Object.keys(values).length < questions.length) {
             alert('Complete all fields')
             return
           }
