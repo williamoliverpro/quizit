@@ -29,9 +29,9 @@ export default function Quantity() {
 
   return (
     <>
-      <Box mx="auto" my="5rem" px="1rem" sx={{
+      <Box mx="auto" my="2rem" px="1rem" sx={{
         maxWidth: 940,
-        height: '80vh',
+        height: '90vh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -44,10 +44,7 @@ export default function Quantity() {
           {isToContinue ? 'Ready?' : 'Choose the number of questions'}
         </Typography>
 
-        {!isToContinue ? (
-          <Typography fontSize="4rem" textAlign="center">{quantity < 5 ? emojis[0] : quantity < 10 ? emojis[1] : quantity < 14 ? emojis[2] : emojis[3]}</Typography>
-        ) : (
-          // <Typography fontSize="4rem" textAlign="center">🏃</Typography>
+        {isToContinue && (
           <Lottie
             options={defaultOptions}
             height={300}
@@ -57,6 +54,7 @@ export default function Quantity() {
 
         {!isToContinue && (
           <Box>
+            <Typography fontSize="4rem" textAlign="center">{quantity < 5 ? emojis[0] : quantity < 10 ? emojis[1] : quantity < 14 ? emojis[2] : emojis[3]}</Typography>
             <Box display="flex" sx={{
               width: '100%',
               display: 'flex',
@@ -73,7 +71,7 @@ export default function Quantity() {
         )}
 
         {isToContinue ? (
-          <Box display="flex" flexDirection="row-reverse" flexWrap="wrap" width="100%" alignItems="center" justifyContent="space-between">
+          <Box display="flex" flexDirection="row-reverse" gap="1rem" flexWrap="wrap" width="100%" alignItems="center" justifyContent="space-between">
             <Button component={Link} to="/quiz" variant="contained" color="primary" size="large">
               Start
             </Button>
@@ -83,9 +81,11 @@ export default function Quantity() {
             </Button>
           </Box>
         ) : (
-          <Button onClick={() => setIsToContinue(true)} variant="contained" color="primary" size="large">
-            Next
-          </Button>
+          <Box display="flex" width="100%" justifyContent="flex-end" >
+            <Button onClick={() => setIsToContinue(true)} variant="contained" color="primary" size="large">
+              Next
+            </Button>
+          </Box>
         )}
       </Box>
     </>

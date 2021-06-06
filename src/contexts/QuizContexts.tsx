@@ -19,7 +19,7 @@ interface QuizProviderProps {
 export const QuizContext = createContext({} as QuizContextData)
 
 export function ChallengesProvider({ children, ...rest }: QuizProviderProps) {
-  const [quantity, setQuantity] = useState(rest.quantity ?? 0)
+  const [quantity, setQuantity] = useState(rest.quantity ?? 1)
   const [answers, setAnswers] = useState(rest.answers ?? {})
   const [questions, setQuestions] = useState(rest.questions ?? [])
 
@@ -36,8 +36,8 @@ export function ChallengesProvider({ children, ...rest }: QuizProviderProps) {
   }
 
   useEffect(() => {
-    setQuantity(Number(localStorage.getItem('quantity')))
-    setQuestions(JSON.parse(localStorage.getItem('questions') || '{}'))
+    // setQuantity(Number(localStorage.getItem('quantity')))
+    setQuestions(JSON.parse(localStorage.getItem('questions') || '[]'))
     setAnswers(JSON.parse(localStorage.getItem('answers') || '{}'))
   }, [])
 

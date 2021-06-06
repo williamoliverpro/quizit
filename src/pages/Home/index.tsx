@@ -20,8 +20,8 @@ export default function Home() {
 
   return (
     <>
-      <Box mx="auto" my="5rem" px="1rem" sx={{
-        height: '80vh',
+      <Box mx="auto" my="2rem" px="1rem" sx={{
+        height: '90vh',
         maxWidth: 940,
         display: 'flex',
         flexDirection: 'column',
@@ -34,21 +34,22 @@ export default function Home() {
         }}>
           Welcome
         </Typography>
+        <Box width="100%" display="flex" alignItems="center" justifyContent="center">
+          <Lottie
+            options={defaultOptions}
+            height={400}
+            width={400}
+          />
+        </Box>
 
-        <Lottie
-          options={defaultOptions}
-          height={400}
-          width={400}
-        />
-
-        <Box mx="auto" display="flex" gap="1rem" width="100%" flexWrap="wrap" justifyContent="space-between">
-          <Button component={Link} to="/quantity" variant="contained" color="primary" size="large" href="/quantity">
-            Start
-          </Button>
-
+        <Box mx="auto" display="flex" gap="1rem" width="100%" flexWrap="wrap" alignItems="center" justifyContent={(Object.keys(answers).length !== 0) ? "space-between" : "center"}>
           {(Object.keys(answers).length !== 0) && (<Button component={Link} to="/results" variant="outlined" color="primary" size="large">
             Last quiz
           </Button>)}
+
+          <Button component={Link} to="/quantity" variant="contained" color="primary" size="large" href="/quantity">
+            Start
+          </Button>
         </Box>
       </Box>
     </>

@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { useFormik } from 'formik';
+import { Formik } from 'formik';
 import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@material-ui/core";
 
 import { api } from "../../services/api";
@@ -26,9 +26,9 @@ function shuffle(arr: any) {
 }
 
 export default function Quiz() {
-  // const [questions, setQuestions] = useState<QuestionItem[]>([])
   const { quantity, questions, storeQuestions, storeAnswers } = useContext(QuizContext)
   const history = useHistory()
+  const initialValues = {}
 
   useEffect(() => {
     async function fetchQuestions() {
@@ -48,47 +48,52 @@ export default function Quiz() {
         }
       })
 
-      console.log(dataFormatted)
-
       storeQuestions(dataFormatted)
     }
 
     fetchQuestions()
   }, [quantity])
 
-  const formik = useFormik({
-    initialValues: {},
-    onSubmit: (values) => {
-      storeAnswers(values)
-      history.push('/results')
-    },
-  });
-
   return (
-    <Box mx="auto" my="5rem" px="1rem" sx={{
+    <Box mx="auto" my="2rem" px="1rem" sx={{
       maxWidth: 940,
       height: '80vh',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
     }}>
-      <form onSubmit={formik.handleSubmit}>
-        {questions.map((question: QuestionItem) => (
-          <>
-            <FormControl component="fieldset" required={true}>
-              <FormLabel key={question.id} component="legend" >{question.question}</FormLabel>
-              <RadioGroup name={question.id} onChange={formik.handleChange}>
-                {question.options.map(option => (
-                  <FormControlLabel name={question.id} value={option} control={<Radio />} label={option} />
-                ))}
-              </RadioGroup>
-            </FormControl>
-          </>
-        ))}
-        <Button color="primary" variant="contained" fullWidth type="submit">
-          Finish
-        </Button>
-      </form>
-    </Box>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values, actions) => {
+          if (Object.keys(values).length < Object.keys(questions).length) {
+            alert('Complete all fields')
+            return
+          }
+          storeAnswers(values)
+          history.push('/results')
+        }}
+      >
+        {props => (
+          <form onSubmit={props.handleSubmit}>
+            {questions.map((question: QuestionItem, index: number) => (
+              <>
+                <FormControl component="fieldset" required={true}>
+                  <FormLabel key={question.id} component="legend" >{question.question}</FormLabel>
+                  <RadioGroup name={question.id} onChange={props.handleChange}>
+                    {question.options.map(option => (
+                      <FormControlLabel name={question.id} value={option} control={<Radio />} label={option} />
+                    ))}
+                  </RadioGroup>
+                </FormControl>
+              </>
+            ))
+            }
+            < Button color="primary" variant="contained" fullWidth type="submit">
+              Finish
+            </Button>
+          </form>
+        )}
+      </Formik>
+    </Box >
   )
 }
