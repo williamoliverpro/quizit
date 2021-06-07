@@ -13,21 +13,15 @@ type QuestionItem = {
 }
 
 export default function Results() {
-  const { quantity, questions, answers } = useContext<any>(QuizContext)
+  const { questions, answers, completeQuiz, hits } = useContext<any>(QuizContext)
   const [isShowDetails, setIsShowDetails] = useState(false)
   const [percentageOfSuccesses, setPercentageOfSuccesses] = useState(0)
 
   useEffect(() => {
-    let hits = 0
+    completeQuiz()
 
-    for (let [index, question] of questions.entries()) {
-      if (question.correct_answer == answers[index]) {
-        hits++
-      }
-
-      setPercentageOfSuccesses(Math.round((hits / questions.length) * 100))
-    }
-  }, [questions, answers])
+    setPercentageOfSuccesses(Math.round((hits / questions.length) * 100))
+  }, [])
 
   if (isShowDetails) {
     return (
@@ -83,7 +77,7 @@ export default function Results() {
       </Typography>
 
         <Typography fontSize="4rem" textAlign="center">
-          {percentageOfSuccesses > 70 ? (<>😊</>) : (<>😢</>)}
+          {percentageOfSuccesses > 70 ? (<>🥳</>) : (<>😢</>)}
         </Typography>
 
         <Box mx="auto" width="100%" gap="1rem" display="flex" justifyContent="space-between" flexWrap="wrap">

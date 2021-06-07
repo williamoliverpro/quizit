@@ -1,10 +1,13 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Formik } from 'formik';
-import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@material-ui/core";
+import { Field } from 'formik';
+import { Box, FormControl, FormControlLabel, FormLabel, Radio } from "@material-ui/core";
+import { RadioGroup } from 'formik-material-ui';
+import { object, string } from 'yup';
 
 import { api } from "../../services/api";
 import { QuizContext } from "../../contexts/QuizContexts";
+import { FormikStep, FormikStepper } from "../../components/Formikstepper";
 
 type QuestionItem = {
   id: string
@@ -14,7 +17,9 @@ type QuestionItem = {
   options: []
 }
 
-function shuffle(arr: any) {
+const sleep = (time: number) => new Promise((acc) => setTimeout(acc, time));
+
+function shuffle(arr: Array<string>) {
   var j, x, index;
   for (index = arr.length - 1; index > 0; index--) {
     j = Math.floor(Math.random() * (index + 1));
@@ -28,7 +33,7 @@ function shuffle(arr: any) {
 export default function Quiz() {
   const { quantity, questions, storeQuestions, storeAnswers } = useContext(QuizContext)
   const history = useHistory()
-  const initialValues = {}
+  const [initialValues, setInitialValues] = useState({})
 
   useEffect(() => {
     async function fetchQuestions() {
@@ -38,7 +43,7 @@ export default function Quiz() {
         }
       })
 
-      const dataFormatted = data.results.map((question: any, index: any) => {
+      const questionsFormatted = data.results.map((question: {[key: string]: any}, index: number) => {
         const options = shuffle([question.correct_answer, ...question?.incorrect_answers])
 
         return {
@@ -48,52 +53,64 @@ export default function Quiz() {
         }
       })
 
-      storeQuestions(dataFormatted)
+      let initialValuesFormatted = {}
+
+      for (let i = 0; i < questionsFormatted.length; i++) {
+        initialValuesFormatted = {
+          ...initialValuesFormatted,
+          [questionsFormatted[i].id]: ''
+        }
+      }
+
+      setInitialValues(initialValuesFormatted)
+      storeQuestions(questionsFormatted)
     }
 
     fetchQuestions()
   }, [quantity])
 
   return (
-    <Box mx="auto" my="2rem" px="1rem" sx={{
-      maxWidth: 940,
-      height: '80vh',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-    }}>
-      <Formik
+    <Box
+      mx="auto"
+      my="2rem"
+      px="1rem"
+      maxWidth="940px">
+      <FormikStepper
         initialValues={initialValues}
-        onSubmit={(values, actions) => {
+        onSubmit={async (values) => {
+          await sleep(1000);
+
           if (Object.keys(values).length < questions.length) {
             alert('Complete all fields')
             return
           }
-          storeAnswers(values)
+
+          await storeAnswers(values)
           history.push('/results')
         }}
       >
-        {props => (
-          <form onSubmit={props.handleSubmit}>
-            {questions.map((question: QuestionItem, index: number) => (
-              <>
-                <FormControl component="fieldset" required={true}>
-                  <FormLabel key={question.id} component="legend" >{question.question}</FormLabel>
-                  <RadioGroup name={question.id} onChange={props.handleChange}>
-                    {question.options.map(option => (
-                      <FormControlLabel name={question.id} value={option} control={<Radio />} label={option} />
-                    ))}
-                  </RadioGroup>
-                </FormControl>
-              </>
-            ))
-            }
-            < Button color="primary" variant="contained" fullWidth type="submit">
-              Finish
-            </Button>
-          </form>
-        )}
-      </Formik>
+        {
+          questions.map((question: QuestionItem, index: number) => (
+            <FormikStep
+              key={question.id}
+              label={`Question ${Number(question.id) + 1}`}
+              validationSchema={object().shape({
+                [question.id]: string().required("A radio option is required")
+              })}
+            >
+              <FormControl component="fieldset">
+                <FormLabel component="legend" >{question.question}</FormLabel>
+
+                <Field component={RadioGroup} name={question.id} >
+                  {question.options.map(option => (
+                    <FormControlLabel key={option} name={question.id} value={option} control={<Radio />} label={option} />
+                  ))}
+                </Field>
+
+              </FormControl>
+            </FormikStep>
+          ))}
+      </FormikStepper>
     </Box >
   )
 }

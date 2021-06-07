@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+:root {
+  --text: #666666;
+}
+
 @media (max-width: 1080px) {
   html {
     font-size: 93.75
@@ -15,4 +19,21 @@
   html {
     font-size: 87.5
   }
+}
+
+body {
+  color: var(--text);
+}
+
+body, input, textarea, button {
+  font: 400 1rem "Roboto", sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }

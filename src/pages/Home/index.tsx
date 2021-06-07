@@ -4,7 +4,10 @@ import { Box, Typography, Button } from '@material-ui/core';
 import Lottie from 'react-lottie';
 
 import { QuizContext } from '../../contexts/QuizContexts';
-import animationData from '../../lotties/brainy-questions.json';
+import { ExperienceBar } from '../../components/ExperienceBar';
+import { CompletedQuizzes } from '../../components/CompletedQuizzes';
+import animationData from '../../assets/brainy-questions.json';
+import { LevelStatus } from '../../components/LevelStatus';
 
 export default function Home() {
   const { answers } = useContext(QuizContext)
@@ -20,11 +23,35 @@ export default function Home() {
 
   return (
     <>
-      <Box mx="auto" my="2rem" px="1rem" height="90vh" maxWidth="940px" display="flex" flexDirection="column" justifyContent="space-between">
-        <Typography fontSize="2rem" fontWeight="bold" textAlign="center" color="#293845" >
-          Welcome to Quiz.it
+      <Box
+        mx="auto"
+        my="2rem"
+        px="1rem"
+        height="90vh"
+        maxWidth="940px"
+        display="flex"
+        flexDirection="column"
+        justifyContent="space-between">
+
+
+        <Typography
+          fontSize="2rem"
+          fontWeight="bold"
+          color="#293845">Welcome to Quiz.it
         </Typography>
-        <Box width="100%" display="flex" alignItems="center" justifyContent="center">
+
+        <ExperienceBar />
+
+        <Box display="flex" alignItems="center" justifyContent="space-between">
+          <LevelStatus />
+          <CompletedQuizzes />
+        </Box>
+
+        <Box
+          width="100%"
+          display="flex"
+          alignItems="center"
+          justifyContent="center">
           <Lottie
             options={defaultOptions}
             height={400}
@@ -32,12 +59,31 @@ export default function Home() {
           />
         </Box>
 
-        <Box mx="auto" display="flex" gap="1rem" width="100%" flexWrap="wrap" alignItems="center" justifyContent={(Object.keys(answers).length !== 0) ? "space-between" : "center"}>
-          {(Object.keys(answers).length !== 0) && (<Button component={Link} to="/results" variant="outlined" color="primary" size="large">
-            Last quiz
-          </Button>)}
+        <Box
+          mx="auto"
+          display="flex"
+          gap="1rem"
+          width="100%"
+          flexWrap="wrap"
+          alignItems="center"
+          justifyContent={(Object.keys(answers).length !== 0) ? "space-between" : "center"}>
+          {(Object.keys(answers).length !== 0) && (
+            <Button
+              component={Link}
+              to="/results"
+              variant="outlined"
+              color="primary"
+              size="large">
+              Last quiz
+            </Button>)}
 
-          <Button component={Link} to="/quantity" variant="contained" color="primary" size="large" href="/quantity">
+          <Button
+            component={Link}
+            to="/quantity"
+            variant="contained"
+            color="primary"
+            size="large"
+            href="/quantity">
             Start
           </Button>
         </Box>
