@@ -156,7 +156,6 @@ export default function Results() {
         <Box
           mx="auto"
           width="100%"
-          gap="1rem"
           display="flex"
           justifyContent="space-between"
           flexWrap="wrap">
@@ -175,6 +174,9 @@ export default function Results() {
             variant="contained"
             color="primary"
             fullWidth={!matches}
+            style={matches ? {} : {
+              marginTop: '1rem'
+            }}
             size="large">
             Home Page
           </Button>

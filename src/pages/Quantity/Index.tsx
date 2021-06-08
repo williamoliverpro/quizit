@@ -57,7 +57,7 @@ export default function Quantity() {
         {isToContinue && (
           <Lottie
             options={defaultOptions}
-            height={matches ? 300 : 250}
+            height='auto'
             width={matches ? 300 : 250}
           />
         )}
@@ -106,8 +106,7 @@ export default function Quantity() {
             flexDirection="row-reverse"
             alignItems="center"
             justifyContent="space-between"
-            flexWrap="wrap"
-            gap="1rem">
+            flexWrap="wrap">
             <Button
               component={Link}
               to="/quiz"
@@ -123,6 +122,9 @@ export default function Quantity() {
               variant="outlined"
               color="secondary"
               fullWidth={!matches}
+              style={matches ? {} : {
+                marginTop: '1rem'
+              }}
               size="large">
               Cancel
             </Button>

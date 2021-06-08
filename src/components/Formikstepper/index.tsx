@@ -155,13 +155,13 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
           <Box
             display="flex"
             flexDirection="row-reverse"
-            gap="1rem"
             flexWrap="wrap"
             width="100%"
             alignItems="center"
             justifyContent="space-between"
             position="absolute"
             bottom="0"
+            left="0"
             py="2rem"
             px="1rem"
             >
@@ -181,6 +181,9 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
                 variant="outlined"
                 color="secondary"
                 fullWidth={!matches}
+                style={matches ? {} : {
+                  marginTop: '1rem'
+                }}
                 onClick={() => setStep((s) => s - 1)}>
                 Back
               </Button>
