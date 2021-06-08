@@ -16,12 +16,12 @@ interface QuizContextData {
   currentExperience: number
   experienceToNextLevel: number
   hits: number
+  amount: number
   quizzesCompleted: number
   storeQuantity: (quantity: number) => void
-  storeAnswers: (values: { [key: string]: any }) => void
   storeQuestions: (questions: []) => void
   levelUp: () => void
-  completeQuiz: () => void
+  completeQuiz: (answers: { [key: string]: any }) => void
   closeLevelUpModal: () => void
 }
 
@@ -34,6 +34,7 @@ interface QuizProviderProps {
   currentExperience: number
   experienceToNextLevel: number
   hits: number
+  amount: number
   quizzesCompleted: number
 }
 
@@ -47,6 +48,7 @@ export function QuizProvider({ children, ...rest }: QuizProviderProps) {
   const [level, setLevel] = useState(rest.level ?? 1)
   const [currentExperience, setCurrentExperience] = useState(rest.currentExperience ?? 0)
   const [hits, setHits] = useState(rest.hits ?? 0)
+  const [amount, setAmount] = useState(0)
   const [quizzesCompleted, setQuizzesCompleted] = useState(rest.quizzesCompleted ?? 0)
 
   const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false)
@@ -61,10 +63,6 @@ export function QuizProvider({ children, ...rest }: QuizProviderProps) {
     setQuestions(questions)
   }
 
-  function storeAnswers(values: { [key: string]: any }) {
-    setAnswers(values)
-  }
-
   function levelUp() {
     setLevel(level + 1)
     setIsLevelUpModalOpen(true)
@@ -74,7 +72,7 @@ export function QuizProvider({ children, ...rest }: QuizProviderProps) {
     setIsLevelUpModalOpen(false)
   }
 
-  function completeQuiz() {
+  function completeQuiz(answers: { [key: string]: any }) {
     let hitsChecked = 0
 
     for (let [index, question] of questions.entries()) {
@@ -93,30 +91,32 @@ export function QuizProvider({ children, ...rest }: QuizProviderProps) {
       finalExperience = finalExperience - experienceToNextLevel
       levelUp()
     }
-
+    
+    setAnswers(answers)
     setHits(hitsChecked)
+    setAmount(amount)
     setQuizzesCompleted(quizzesCompleted + 1)
     setCurrentExperience(finalExperience)
   }
 
   useEffect(() => {
-    // setQuantity(Number(localStorage.getItem('quantity')))
     setQuestions(JSON.parse(localStorage.getItem('questions') || '[]'))
     setAnswers(JSON.parse(localStorage.getItem('answers') || '{}'))
     setLevel(Number(localStorage.getItem('level') || 1))
     setCurrentExperience(Number(localStorage.getItem('currentExperience')))
     setQuizzesCompleted(Number(localStorage.getItem('quizzesCompleted')))
     setHits(Number(localStorage.getItem('hits')))
+    setAmount(Number(localStorage.getItem('amount')))
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('quantity', String(quantity));
-    localStorage.setItem('questions', JSON.stringify(questions));
-    localStorage.setItem('answers', JSON.stringify(answers));
-    localStorage.setItem('level', String(level));
-    localStorage.setItem('currentExperience', String(currentExperience));
-    localStorage.setItem('quizzesCompleted', String(quizzesCompleted));
-    localStorage.setItem('hits', String(hits));
+    localStorage.setItem('questions', JSON.stringify(questions))
+    localStorage.setItem('answers', JSON.stringify(answers))
+    localStorage.setItem('level', String(level))
+    localStorage.setItem('currentExperience', String(currentExperience))
+    localStorage.setItem('quizzesCompleted', String(quizzesCompleted))
+    localStorage.setItem('hits', String(hits))
+    localStorage.setItem('amount', String(amount))
   }, [
     quantity,
     questions,
@@ -125,6 +125,7 @@ export function QuizProvider({ children, ...rest }: QuizProviderProps) {
     currentExperience,
     quizzesCompleted,
     hits,
+    amount
   ])
 
   return (
@@ -134,13 +135,13 @@ export function QuizProvider({ children, ...rest }: QuizProviderProps) {
       answers,
       storeQuantity,
       storeQuestions,
-      storeAnswers,
       level,
       currentExperience,
       experienceToNextLevel,
       quizzesCompleted,
       levelUp,
       hits,
+      amount,
       completeQuiz,
       closeLevelUpModal
     }}>

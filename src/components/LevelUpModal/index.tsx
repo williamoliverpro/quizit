@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography } from '@material-ui/core';
+import { Box, IconButton, Typography } from '@material-ui/core'
 import { useContext } from 'react'
 import { QuizContext } from '../../contexts/QuizContexts'
 

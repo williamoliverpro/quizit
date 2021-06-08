@@ -1,9 +1,9 @@
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom'
 
-import Home from '../pages/Home';
-import Quantity from '../pages/Quantity/Index';
-import Quiz from '../pages/Quiz';
-import Results from '../pages/Results';
+import Home from '../pages/Home'
+import Quantity from '../pages/Quantity/Index'
+import Quiz from '../pages/Quiz'
+import Results from '../pages/Results'
 
 const Routes = () => (
   <Switch>
@@ -12,6 +12,6 @@ const Routes = () => (
     <Route path="/quantity" exact component={Quantity} />
     <Route path="/quiz" exact component={Quiz} />
   </Switch>
-);
+)
 
-export default Routes;
+export default Routes

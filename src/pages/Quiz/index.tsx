@@ -1,13 +1,13 @@
-import { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { Field } from 'formik';
-import { Box, FormControl, FormControlLabel, FormLabel, Radio } from "@material-ui/core";
-import { RadioGroup } from 'formik-material-ui';
-import { object, string } from 'yup';
+import { useContext, useEffect, useState } from "react"
+import { useHistory } from "react-router-dom"
+import { Field } from 'formik'
+import { Box, FormControl, FormControlLabel, FormLabel, Radio } from "@material-ui/core"
+import { RadioGroup } from 'formik-material-ui'
+import { object, string } from 'yup'
 
-import { api } from "../../services/api";
-import { QuizContext } from "../../contexts/QuizContexts";
-import { FormikStep, FormikStepper } from "../../components/Formikstepper";
+import { api } from "../../services/api"
+import { QuizContext } from "../../contexts/QuizContexts"
+import { FormikStep, FormikStepper } from "../../components/Formikstepper"
 
 type QuestionItem = {
   id: string
@@ -17,21 +17,21 @@ type QuestionItem = {
   options: []
 }
 
-const sleep = (time: number) => new Promise((acc) => setTimeout(acc, time));
+const sleep = (time: number) => new Promise((acc) => setTimeout(acc, time))
 
 function shuffle(arr: Array<string>) {
-  var j, x, index;
+  let j, x, index
   for (index = arr.length - 1; index > 0; index--) {
-    j = Math.floor(Math.random() * (index + 1));
-    x = arr[index];
-    arr[index] = arr[j];
-    arr[j] = x;
+    j = Math.floor(Math.random() * (index + 1))
+    x = arr[index]
+    arr[index] = arr[j]
+    arr[j] = x
   }
-  return arr;
+  return arr
 }
 
 export default function Quiz() {
-  const { quantity, questions, storeQuestions, storeAnswers } = useContext(QuizContext)
+  const { quantity, questions, storeQuestions, completeQuiz } = useContext(QuizContext)
   const history = useHistory()
   const [initialValues, setInitialValues] = useState({})
 
@@ -78,14 +78,14 @@ export default function Quiz() {
       <FormikStepper
         initialValues={initialValues}
         onSubmit={async (values) => {
-          await sleep(1000);
+          await sleep(1000)
 
           if (Object.keys(values).length < questions.length) {
             alert('Complete all fields')
             return
           }
 
-          await storeAnswers(values)
+          await completeQuiz(values)
           history.push('/results')
         }}
       >

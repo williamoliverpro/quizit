@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Box, Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core'
 import { QuizContext } from '../../contexts/QuizContexts'
 
 export function LevelStatus() {

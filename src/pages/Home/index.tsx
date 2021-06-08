@@ -1,16 +1,20 @@
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { Box, Typography, Button } from '@material-ui/core';
-import Lottie from 'react-lottie';
+import { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { Box, Typography, Button  } from '@material-ui/core'
+import Lottie from 'react-lottie'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { useTheme } from '@material-ui/core/styles'
 
-import { QuizContext } from '../../contexts/QuizContexts';
-import { ExperienceBar } from '../../components/ExperienceBar';
-import { CompletedQuizzes } from '../../components/CompletedQuizzes';
-import animationData from '../../assets/brainy-questions.json';
-import { LevelStatus } from '../../components/LevelStatus';
+import { QuizContext } from '../../contexts/QuizContexts'
+import { ExperienceBar } from '../../components/ExperienceBar'
+import { CompletedQuizzes } from '../../components/CompletedQuizzes'
+import animationData from '../../assets/brainy-questions.json'
+import { LevelStatus } from '../../components/LevelStatus'
 
 export default function Home() {
   const { answers } = useContext(QuizContext)
+  const theme = useTheme()
+  const matches = useMediaQuery(theme.breakpoints.up('sm'))
 
   const defaultOptions = {
     loop: false,
@@ -19,32 +23,36 @@ export default function Home() {
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice"
     }
-  };
+  }
 
   return (
     <>
       <Box
         mx="auto"
-        my="2rem"
         px="1rem"
-        height="90vh"
+        minHeight="100vh"
         maxWidth="940px"
         display="flex"
         flexDirection="column"
         justifyContent="space-between">
-
-
-        <Typography
-          fontSize="2rem"
-          fontWeight="bold"
-          color="#293845">Welcome to Quiz.it
+        <Box my="1rem">
+          <Typography
+            fontSize={matches ? "2rem": "1.5rem"}
+            fontWeight="bold"
+            marginBottom="1rem"
+            color="#293845">Welcome to Quiz.it
         </Typography>
 
-        <ExperienceBar />
+          <ExperienceBar />
 
-        <Box display="flex" alignItems="center" justifyContent="space-between">
-          <LevelStatus />
-          <CompletedQuizzes />
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            marginTop="1rem">
+            <LevelStatus />
+            <CompletedQuizzes />
+          </Box>
         </Box>
 
         <Box
@@ -54,18 +62,19 @@ export default function Home() {
           justifyContent="center">
           <Lottie
             options={defaultOptions}
-            height={400}
-            width={400}
+            height='auto'
+            width={matches ? 400 : 250}
           />
         </Box>
 
         <Box
           mx="auto"
+          py="2rem"
           display="flex"
-          gap="1rem"
           width="100%"
-          flexWrap="wrap"
           alignItems="center"
+          flexWrap="wrap"
+          gap="1rem"
           justifyContent={(Object.keys(answers).length !== 0) ? "space-between" : "center"}>
           {(Object.keys(answers).length !== 0) && (
             <Button
@@ -73,6 +82,7 @@ export default function Home() {
               to="/results"
               variant="outlined"
               color="primary"
+              fullWidth={!matches}
               size="large">
               Last quiz
             </Button>)}
@@ -83,11 +93,12 @@ export default function Home() {
             variant="contained"
             color="primary"
             size="large"
+            fullWidth={!matches}
             href="/quantity">
             Start
           </Button>
         </Box>
       </Box>
     </>
-  );
+  )
 }

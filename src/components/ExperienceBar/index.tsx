@@ -1,6 +1,6 @@
-import { Box, Typography } from '@material-ui/core';
-import { useContext } from 'react';
-import { QuizContext } from '../../contexts/QuizContexts';
+import { Box, Typography } from '@material-ui/core'
+import { useContext } from 'react'
+import { QuizContext } from '../../contexts/QuizContexts'
 
 export function ExperienceBar() {
   const { currentExperience, experienceToNextLevel } = useContext(QuizContext)
@@ -33,7 +33,6 @@ export function ExperienceBar() {
           component="span"
           position="absolute"
           top="12px"
-          // transform="translateX(-50%)"
           left={percentToNextLevel}
           sx={{
             transform: "translateX(-50%)"
@@ -43,5 +42,5 @@ export function ExperienceBar() {
       </Box>
       <Typography>{experienceToNextLevel} xp</Typography>
     </Box >
-  );
+  )
 }

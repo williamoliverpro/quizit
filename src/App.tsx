@@ -1,29 +1,10 @@
-import { BrowserRouter as Router } from 'react-router-dom';
-import Routes from './routes';
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
-import { teal } from '@material-ui/core/colors';
+import { BrowserRouter as Router } from 'react-router-dom'
+import Routes from './routes'
+import { createTheme, ThemeProvider } from '@material-ui/core/styles'
+import { teal } from '@material-ui/core/colors'
 
 import { QuizProvider } from './contexts/QuizContexts'
 import './global.css'
-import { FC } from 'react';
-
-type QuestionItem = {
-  id: string
-  question: string
-  correct_answer: string
-  incorrect_answers: []
-  options: []
-}
-interface AppProps {
-  quantity: number
-  answers: { [key: string]: any }
-  questions: QuestionItem[]
-  level: number
-  currentExperience: number
-  experienceToNextLevel: number
-  quizzesCompleted: number
-  hits: number
-}
 
 const theme = createTheme({
   palette: {
@@ -36,7 +17,7 @@ const theme = createTheme({
       width: '20rem'
     }
   }
-});
+})
 
 export default function App(props: any) {
   return (
@@ -51,6 +32,7 @@ export default function App(props: any) {
           experienceToNextLevel={props.experienceToNextLevel}
           quizzesCompleted={props.quizzesCompleted}
           hits={props.hits}
+          amount={props.amount}
           >
 
           <Router>
