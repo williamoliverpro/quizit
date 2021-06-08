@@ -76,11 +76,8 @@ export function QuizProvider({ children, ...rest }: QuizProviderProps) {
     let hitsChecked = 0
 
     for (let [index, question] of questions.entries()) {
-      console.log(question.correct_answer)
-      console.log(answers[index])
       if (question.correct_answer === answers[index]) {
         hitsChecked++
-        console.log("Passou")
       }
     }
 

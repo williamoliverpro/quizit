@@ -14,7 +14,6 @@ export function ExperienceBar() {
         height="4px"
         borderRadius="4px"
         mx="1.5rem"
-        my="0"
         position="relative"
         sx={{
           background: '#dcdde0'

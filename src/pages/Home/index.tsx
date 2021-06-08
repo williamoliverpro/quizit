@@ -50,7 +50,7 @@ export default function Home() {
             display="flex"
             alignItems="center"
             justifyContent="space-between"
-            marginTop="1rem">
+            marginTop="2rem">
             <LevelStatus />
             <CompletedQuizzes />
           </Box>

@@ -22,6 +22,7 @@ export function LevelUpModal() {
       <Box
         width="100%"
         maxWidth="400px"
+        mx="1rem"
         px="2rem"
         py="3rem"
         borderRadius="5px"
