@@ -12,7 +12,7 @@ Quiz.it
 
 ### Demo
 
-<a href="https://quizit-two.vercel.app/">Quiz.it in web</a>
+<a href="https://quizit-two.vercel.app/" target="_blank">Quiz.it in web</a>
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
   <img alt="Gif Screen" title="gif_screen" src=".github/demo.gif" width="100%">
