@@ -30,7 +30,8 @@ export default function Home() {
       <Box
         mx="auto"
         px="1rem"
-        minHeight="100vh"
+        minHeight="90vh"
+        maxHeight="100vh"
         maxWidth="940px"
         display="flex"
         flexDirection="column"
@@ -70,12 +71,12 @@ export default function Home() {
         <Box
           mx="auto"
           py="2rem"
-          display="flex"
           width="100%"
+          display="flex"
           alignItems="center"
           flexWrap="wrap"
-          gap="1rem"
-          justifyContent={(Object.keys(answers).length !== 0) ? "space-between" : "center"}>
+          justifyContent={(Object.keys(answers).length !== 0) ? "space-between" : "center"}
+          gap="1rem">
           {(Object.keys(answers).length !== 0) && (
             <Button
               component={Link}

@@ -159,7 +159,12 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
             flexWrap="wrap"
             width="100%"
             alignItems="center"
-            justifyContent="space-between">
+            justifyContent="space-between"
+            position="absolute"
+            bottom="0"
+            py="2rem"
+            px="1rem"
+            >
             <Button
               startIcon={isSubmitting ? <CircularProgress size="1rem" /> : null}
               disabled={isSubmitting}

@@ -72,8 +72,10 @@ export default function Quiz() {
   return (
     <Box
       mx="auto"
-      my="2rem"
+      minHeight="90vh"
+      maxHeight="100vh"
       px="1rem"
+      position="relative"
       maxWidth="940px">
       <FormikStepper
         initialValues={initialValues}

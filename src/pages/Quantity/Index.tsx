@@ -36,19 +36,20 @@ export default function Quantity() {
     <>
       <Box
         mx="auto"
-        my="2rem"
         px="1rem"
         maxWidth="940px"
-        height="90vh"
+        minHeight="90vh"
+        maxHeight="100vh"
         display="flex"
         flexDirection="column"
         justifyContent="space-between"
       >
         <Typography
-          fontSize={matches ? "2rem": "1.5rem"}
+          fontSize={matches ? "2rem" : "1.5rem"}
           color="#293845"
           fontWeight="bold"
           px="1rem"
+          my="1rem"
         >
           {isToContinue ? 'Ready?' : 'Choose the number of questions'}
         </Typography>
@@ -99,13 +100,14 @@ export default function Quantity() {
 
         {isToContinue ? (
           <Box
+            py="2rem"
+            width="100%"
             display="flex"
             flexDirection="row-reverse"
-            gap="1rem"
-            flexWrap="wrap"
-            width="100%"
             alignItems="center"
-            justifyContent="space-between">
+            justifyContent="space-between"
+            flexWrap="wrap"
+            gap="1rem">
             <Button
               component={Link}
               to="/quiz"
@@ -127,6 +129,7 @@ export default function Quantity() {
           </Box>
         ) : (
           <Box
+            py="2rem"
             display="flex"
             width="100%"
             justifyContent="flex-end" >

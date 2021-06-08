@@ -40,10 +40,10 @@ export default function Results() {
     return (
       <Box
         mx="auto"
-        my="2rem"
         px="1rem"
         display="flex"
         minHeight="90vh"
+        maxHeight="100vh"
         maxWidth="940px"
         flexDirection="column"
         justifyContent="space-between">
@@ -53,6 +53,7 @@ export default function Results() {
             color="#293845"
             fontWeight="bold"
             textAlign="center"
+            py="1rem"
             marginBottom="1rem">
             You scored {percentageOfSuccesses}%
             <Typography
@@ -102,6 +103,7 @@ export default function Results() {
           display="flex"
           alignItems="center"
           justifyContent="center"
+          py="2rem"
           marginTop="2rem">
           <Button
             component={Link}
@@ -121,10 +123,10 @@ export default function Results() {
     <>
       <Box
         mx="auto"
-        my="2rem"
         px="1rem"
         maxWidth="940px"
-        height="90vh"
+        minHeight="90vh"
+        maxHeight="100vh"
         display="flex"
         flexDirection="column"
         justifyContent="space-between"
@@ -134,6 +136,7 @@ export default function Results() {
           color="#293845"
           fontWeight="bold"
           textAlign="center"
+          py="1rem"
           marginBottom="1rem">
           You scored {percentageOfSuccesses}%
             <Typography

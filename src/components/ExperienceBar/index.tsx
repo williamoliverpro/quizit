@@ -21,7 +21,7 @@ export function ExperienceBar() {
         }}
       >
         <Box
-          width={percentToNextLevel}
+          width={`${percentToNextLevel}%`}
           height="4px"
           borderRadius="4px"
           sx={{
@@ -33,7 +33,7 @@ export function ExperienceBar() {
           component="span"
           position="absolute"
           top="12px"
-          left={percentToNextLevel}
+          left={`${percentToNextLevel}%`}
           sx={{
             transform: "translateX(-50%)"
           }}
