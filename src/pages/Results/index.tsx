@@ -61,7 +61,7 @@ export default function Results() {
               color="rgb(156, 156, 156)"
               fontWeight="bold"
               textAlign="center">
-              You earn {amount}xp with this quiz
+              You earned {amount}xp with this quiz
             </Typography>
           </Typography>
 
@@ -145,7 +145,7 @@ export default function Results() {
             fontWeight="bold"
             textAlign="center"
           >
-            You earn {amount}xp with this quiz
+            You earned {amount}xp with this quiz
             </Typography>
         </Typography>
 
