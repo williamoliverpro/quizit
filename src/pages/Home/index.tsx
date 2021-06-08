@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { Box, Typography, Button  } from '@material-ui/core'
+import { Box, Typography, Button } from '@material-ui/core'
 import Lottie from 'react-lottie'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
@@ -38,7 +38,7 @@ export default function Home() {
         justifyContent="space-between">
         <Box my="1rem">
           <Typography
-            fontSize={matches ? "2rem": "1.5rem"}
+            fontSize={matches ? "2rem" : "1.5rem"}
             fontWeight="bold"
             marginBottom="1rem"
             color="#293845">Welcome to Quiz.it
@@ -75,8 +75,7 @@ export default function Home() {
           display="flex"
           alignItems="center"
           flexWrap="wrap"
-          justifyContent={(Object.keys(answers).length !== 0) ? "space-between" : "center"}
-          gap="1rem">
+          justifyContent={(Object.keys(answers).length !== 0) ? "space-between" : "center"}>
           {(Object.keys(answers).length !== 0) && (
             <Button
               component={Link}
@@ -95,6 +94,9 @@ export default function Home() {
             color="primary"
             size="large"
             fullWidth={!matches}
+            style={matches ? {} : {
+              marginTop: '1rem'
+            }}
             href="/quantity">
             Start
           </Button>
